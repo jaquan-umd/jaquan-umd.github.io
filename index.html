@@ -1,10 +1,74 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>My GitHub Page</title>
-  </head>
-  <body>
-    <h1>Hello world!</h1>
-    <p>This is my first GitHub Pages site.</p>
-  </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Classic chocolate chip cookies from Jaquan Leonard Kitchen. A simple recipe with an ingredient checklist and clear, numbered instructions.">
+    <title>Classic Chocolate Chip Cookies | Jaquan Leonard Kitchen</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="site-heading">
+        <a class="kitchen-name" href="#recipe-title">Jaquan's Southern Comfort Kitchen<span class="kitchen-tagline">Fall in love with the recipes I learned growing up in South Carolina.</span></a>
+    </div>
+
+    <main class="recipe" aria-labelledby="recipe-title">
+        <header class="recipe-header">
+            <div class="recipe-intro">
+                <h1 id="recipe-title">Classic Chocolate<br>Chip Cookies</h1>
+                <p class="recipe-description">These classic chocolate chip cookies are crispy on the edges, chewy in the middle, and packed with chocolate chips. Perfect for any occasion, from lunch boxes to holiday gatherings. This foolproof recipe has been tested countless times and always delivers delicious results.</p>
+            </div>
+            <div class="recipe-art">
+                <img
+                    src="images/cookies.png"
+                    class="recipe-photo">
+            </div>
+        </header>
+
+        <section class="recipe-meta" aria-label="Recipe at a glance">
+            <div class="meta-item"><span>Prep time</span><strong>15 minutes</strong></div>
+            <div class="meta-item"><span>Cook time</span><strong>12 minutes</strong></div>
+            <div class="meta-item"><span>Total time</span><strong>27 minutes</strong></div>
+            <div class="meta-item"><span>Makes</span><strong>24 cookies</strong></div>
+            <div class="meta-item"><span>Difficulty</span><strong>Easy</strong></div>
+        </section>
+
+        <section class="ingredients-section" id="ingredients" aria-labelledby="ingredients-title">
+            <h2 id="ingredients-title">Ingredients</h2>
+            <p class="section-intro">Check off each ingredient.</p>
+            <ul class="ingredients-list">
+                <li><label><input type="checkbox"><span><strong>2 1/4 cups</strong> all-purpose flour</span></label></li>
+                <li><label><input type="checkbox"><span><strong>1 teaspoon</strong> baking soda</span></label></li>
+                <li><label><input type="checkbox"><span><strong>1 teaspoon</strong> salt</span></label></li>
+                <li><label><input type="checkbox"><span><strong>1 cup (2 sticks)</strong> butter, softened</span></label></li>
+                <li><label><input type="checkbox"><span><strong>3/4 cup</strong> granulated sugar</span></label></li>
+                <li><label><input type="checkbox"><span><strong>3/4 cup</strong> packed brown sugar</span></label></li>
+                <li><label><input type="checkbox"><span><strong>2 large</strong> eggs</span></label></li>
+                <li><label><input type="checkbox"><span><strong>2 teaspoons</strong> vanilla extract</span></label></li>
+                <li><label><input type="checkbox"><span><strong>2 cups</strong> chocolate chips</span></label></li>
+                <li><label><input type="checkbox"><span><strong>1 cup</strong> chopped walnuts <em>(optional)</em></span></label></li>
+            </ul>
+        </section>
+
+        <section class="instructions-section" id="instructions" aria-labelledby="instructions-title">
+            <h2 id="instructions-title">Let’s make cookies</h2>
+            <ol class="instructions-list" role="list">
+                </span><div><h3>1. Preheat the oven</h3><p>Preheat oven to <strong>375°F (190°C)</strong>. Line baking sheets with parchment paper.</p></div></li>
+                </span><div><h3>2. Mix dry ingredients</h3><p>In a medium bowl, whisk together flour, baking soda, and salt. Set aside.</p></div></li>
+                </span><div><h3>3. Cream butter and sugars</h3><p>In a large bowl, beat softened butter with both sugars until light and fluffy, about <strong>2–3 minutes</strong>.</p></div></li>
+                </span><div><h3>4. Add eggs and vanilla</h3><p>Beat in eggs one at a time, then stir in vanilla extract.</p></div></li>
+                </span><div><h3>5. Combine wet and dry</h3><p>Gradually blend in the flour mixture until just combined. <strong>Don’t overmix.</strong></p></div></li>
+                </span><div><h3>6. Fold in chocolate chips</h3><p>Stir in chocolate chips and nuts (if using).</p></div></li>
+                </span><div><h3>7. Shape and bake</h3><p>Drop rounded tablespoons of dough onto prepared baking sheets, spacing <strong>2 inches apart</strong>. Bake <strong>9–11 minutes</strong> until golden brown.</p></div></li>
+                </span><div><h3>8. Cool, then share</h3><p>Let cool on baking sheet for <strong>2 minutes</strong>, then transfer to wire rack.</p></div></li>
+            </ol>
+        </section>
+
+        <footer class="recipe-footer">
+            <p>Recipe adapted from traditional family cookbook · Nutritional info: ~150 calories per cookie</p>
+            <p class="recipe-tags"><span>Dessert</span><span>Baking</span><span>Cookies</span><span>Chocolate</span><span>Family-friendly</span></p>
+            <p class="footer-signature">From Jaquan Leonard Kitchen</p>
+        </footer>
+    </main>
+</body>
 </html>
