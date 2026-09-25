@@ -1,0 +1,147 @@
+/* 1. Design tokens: I tried various colors before landing on this simple palette. */
+:root {
+    --color-ink: #124a93;
+    --color-paper: #fffaf0;
+    --color-panel: #e1c595;
+    --color-accent: #875333;
+    --color-muted: #516174;
+    --font-heading: "Playwrite Cuba", cursive;
+    --font-body: Arial, sans-serif;
+    --text-body: 1rem;
+    --text-small: 0.875rem;
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-5: 1.5rem;
+    --space-6: 2rem;
+    --space-7: 3rem;
+    --space-8: 4rem;
+    --radius: 0.25rem;
+}
+
+/* 2. Base styles and  navigation. */
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    padding: var(--space-4);
+    background: var(--color-panel);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+    line-height: 1.65;
+}
+h1, h2, h3, p { margin: 0; }
+h1, h2 { font-family: var(--font-heading); }
+a { color: inherit; text-underline-offset: 0.25em; }
+a:focus-visible, input:focus-visible {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 5px;
+}
+section[id] { scroll-margin-top: var(--space-5); }
+.skip-link {
+    position: absolute;
+    top: var(--space-4);
+    left: var(--space-4);
+    z-index: 2;
+    padding: var(--space-3);
+    background: var(--color-paper);
+    transform: translateY(-200%);
+}
+.skip-link:focus { transform: translateY(0); }
+
+/* 3. Page layout: mobile is one column in natural reading order. */
+.site-heading, .recipe { width: min(100%, 75rem); margin-inline: auto; }
+.site-heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding-block: var(--space-3) var(--space-5);
+}
+.kitchen-name {
+    font-family: var(--font-heading);
+    font-size: 1.375rem;
+    font-weight: bold;
+    text-decoration: none;
+}
+.kitchen-tagline {
+    display: block;
+    margin-top: var(--space-1);
+    color: var(--color-muted);
+    font-family: var(--font-body);
+    font-size: var(--text-small);
+    font-weight: normal;
+}
+.collection-label { color: var(--color-muted); font-size: var(--text-small); }
+.recipe {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "header" "meta" "ingredients" "instructions" "footer";
+    gap: var(--space-6);
+    min-height: 100vh;
+    padding: var(--space-5);
+    background: var(--color-paper);
+    border-top: 6px solid var(--color-ink);
+    border-radius: var(--radius);
+}
+.recipe-header { grid-area: header; }
+.recipe-meta { grid-area: meta; }
+.ingredients-section { grid-area: ingredients; }
+.instructions-section { grid-area: instructions; }
+.recipe-footer { grid-area: footer; }
+
+/* 4. Header and typography. */
+.recipe-header { display: flex; flex-direction: column; gap: var(--space-5); }
+.eyebrow {
+    color: var(--color-accent);
+    font-size: var(--text-small);
+    font-weight: bold;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+h1 { margin-block: var(--space-3) var(--space-5); font-size: clamp(2.25rem, 4.5vw, 3.75rem); line-height: 1.08; font-weight: normal; }
+h2 { font-size: 2rem; line-height: 1.2; margin-block: var(--space-2) var(--space-3); font-weight: normal; }
+h3 { font-size: 1.0625rem; line-height: 1.4; margin-bottom: var(--space-1); }
+.recipe-description { max-width: 62ch; }
+.recipe-link { display: inline-flex; gap: var(--space-5); align-items: center; min-height: 44px; margin-top: var(--space-4); font-weight: bold; }
+.recipe-art { align-self: center; width: min(100%, 23rem); text-align: center; }
+.recipe-art svg { display: block; width: 100%; height: auto; }
+.recipe-art p { font-family: var(--font-heading); font-size: 1.25rem; font-style: italic; color: var(--color-accent); }
+.section-intro { color: var(--color-muted); font-size: var(--text-small); }
+
+/* 5. Flexbox components: metadata, checklist rows, and numbered steps. */
+.recipe-meta { display: flex; flex-wrap: wrap; gap: var(--space-4); padding: var(--space-5); background: var(--color-ink); color: var(--color-paper); }
+.meta-item { display: flex; flex-direction: column; flex: 1 1 7rem; gap: var(--space-1); }
+.meta-item span { font-size: var(--text-small); }
+.meta-item strong { font-size: 1.0625rem; }
+.ingredients-section { padding: var(--space-5); background: var(--color-panel); align-self: start; border-radius: var(--radius); }
+.ingredients-list { display: flex; flex-direction: column; list-style: none; margin: var(--space-5) 0; padding: 0; }
+.ingredients-list li { border-bottom: 1px solid var(--color-paper); }
+.ingredients-list label { display: flex; align-items: flex-start; gap: var(--space-3); min-height: 48px; padding-block: var(--space-3); cursor: pointer; }
+.ingredients-list input { flex: 0 0 auto; width: 1.25rem; height: 1.25rem; margin: 0.2rem 0 0; accent-color: var(--color-ink); cursor: pointer; }
+.ingredients-list strong { font-weight: bold; }
+.ingredients-list em { font-style: normal; }
+.ingredients-list input:checked + span { text-decoration: line-through; }
+.ingredient-note { padding-top: var(--space-3); border-top: 1px solid var(--color-accent); font-size: var(--text-small); }
+.instructions-list { display: flex; flex-direction: column; gap: var(--space-5); list-style: none; padding: 0; margin: var(--space-6) 0; }
+.instructions-list li { display: flex; align-items: flex-start; gap: var(--space-4); }
+.instructions-list li > div { min-width: 0; }
+.step-number { display: flex; align-items: center; justify-content: center; flex: 0 0 2.25rem; height: 2.25rem; border: 1px solid var(--color-accent); border-radius: 50%; color: var(--color-accent); font-size: var(--text-small); font-weight: bold; }
+.timing-note { padding: var(--space-4) var(--space-5); border-left: 3px solid var(--color-accent); background: var(--color-panel); font-size: var(--text-small); }
+.timing-note strong { display: block; margin-bottom: var(--space-1); }
+.recipe-footer { padding-top: var(--space-5); border-top: 1px solid var(--color-panel); color: var(--color-muted); font-size: var(--text-small); }
+.recipe-tags { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-4); }
+.recipe-tags span { padding: var(--space-1) var(--space-3); border: 1px solid var(--color-panel); border-radius: var(--radius); }
+.footer-signature { margin-top: var(--space-5); font-family: var(--font-heading); font-style: italic; color: var(--color-ink); font-size: 1.125rem; }
+
+/* 6. Responsive Grid: below 48rem stays stacked; wider screens show
+   ingredients beside instructions, with more room for the longer steps. */
+@media (min-width: 48rem) {
+    body { padding: var(--space-6); }
+    .recipe { padding: var(--space-7); column-gap: var(--space-7); row-gap: var(--space-7); grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.35fr); grid-template-areas: "header header" "meta meta" "ingredients instructions" "footer footer"; }
+    .recipe-header { flex-direction: row; align-items: center; gap: var(--space-6); }
+    .recipe-intro { flex: 1 1 60%; min-width: 0; }
+    .recipe-art { flex: 0 1 34%; }
+}
