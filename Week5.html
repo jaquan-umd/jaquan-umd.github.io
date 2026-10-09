@@ -1,0 +1,647 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial 5: Array Methods for Data</title>
+    <style>
+        /* =====================================================
+           TUTORIAL 5: ARRAY METHODS FOR DATA
+           Consistent styling with previous tutorials
+           ===================================================== */
+
+        /* ROOT VARIABLES */
+        :root {
+            --primary-color: #007cba;
+            --secondary-color: #28a745;
+            --background-color: #f8f9fa;
+            --card-background: #ffffff;
+            --text-color: #333;
+            --border-color: #ddd;
+            --shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+            --border-radius: 0.5rem;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+        }
+
+        /* BASE STYLES */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: var(--spacing-md);
+            background: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 50rem;
+            margin: 0 auto;
+        }
+
+        /* HEADER */
+        header {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+            padding: var(--spacing-xl);
+            background: var(--card-background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        header h1 {
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        header p {
+            color: #666;
+            font-size: 1.1rem;
+            margin: 0;
+        }
+
+        /* METHOD SECTIONS */
+        .method-section {
+            background: var(--card-background);
+            margin-bottom: var(--spacing-lg);
+            padding: var(--spacing-xl);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            border-left: 0.25rem solid var(--primary-color);
+        }
+
+        .method-section h2 {
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .method-section p {
+            margin-bottom: var(--spacing-lg);
+            color: #666;
+        }
+
+        .method-section code {
+            background: #f8f9fa;
+            padding: 0.125rem 0.25rem;
+            border-radius: 0.25rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            color: var(--primary-color);
+        }
+
+        /* DEMO AREAS */
+        .demo-area {
+            background: #f8f9fa;
+            padding: var(--spacing-lg);
+            border-radius: var(--border-radius);
+            border: 2px dashed var(--border-color);
+            margin-bottom: var(--spacing-md);
+        }
+
+        /* BUTTONS */
+        .method-button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: var(--spacing-sm) var(--spacing-lg);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.2s ease;
+            display: block;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .method-button:hover {
+            background: #005a87;
+            transform: translateY(-1px);
+        }
+
+        .method-button:focus {
+            outline: 2px solid var(--secondary-color);
+            outline-offset: 2px;
+        }
+
+        /* RESULT AREAS */
+        .result-area {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-md);
+            min-height: 6rem;
+            max-height: 20rem;
+            overflow-y: auto;
+        }
+
+        .placeholder {
+            color: #666;
+            font-style: italic;
+            text-align: center;
+            margin: var(--spacing-md) 0;
+        }
+
+        /* RESULT CONTENT STYLING */
+        .restaurant-item {
+            padding: var(--spacing-sm);
+            border-bottom: 1px solid #eee;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .restaurant-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .restaurant-name {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .restaurant-cuisine {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .restaurant-rating {
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+        .restaurant-price {
+            background: #fff3cd;
+            padding: 0.125rem 0.25rem;
+            border-radius: 0.25rem;
+            font-size: 0.8rem;
+            color: #856404;
+            display: inline-block;
+        }
+
+        /* LIST STYLES FOR MAP RESULTS */
+        .name-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .name-list li {
+            padding: var(--spacing-sm);
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.2s;
+        }
+
+        .name-list li:hover {
+            background: #f8f9fa;
+        }
+
+        .name-list li:last-child {
+            border-bottom: none;
+        }
+
+        /* FOUND ITEM SPECIAL STYLING */
+        .found-restaurant {
+            background: linear-gradient(135deg, var(--secondary-color), #20c997);
+            color: white;
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius);
+            text-align: center;
+        }
+
+        .found-restaurant .restaurant-name {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        /* EXPLANATIONS */
+        .explanation {
+            background: #e8f5e8;
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius);
+            border-left: 0.25rem solid var(--secondary-color);
+        }
+
+        .explanation p {
+            margin: 0;
+            font-style: italic;
+            color: #155724;
+        }
+
+        /* TUTORIAL INSTRUCTIONS */
+        .tutorial-instructions {
+            background: white;
+            padding: var(--spacing-xl);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            border-left: 0.25rem solid var(--secondary-color);
+        }
+
+        .tutorial-instructions h2 {
+            color: var(--secondary-color);
+            margin-top: 0;
+        }
+
+        .tutorial-instructions h3 {
+            color: var(--primary-color);
+            margin-top: var(--spacing-lg);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .tutorial-instructions code {
+            background: #f8f9fa;
+            padding: 0.125rem 0.25rem;
+            border-radius: 0.25rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            color: var(--primary-color);
+        }
+
+        .tutorial-instructions ol li {
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .tutorial-instructions ul li {
+            margin-bottom: 0.25rem;
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 48rem) {
+            .container {
+                padding: var(--spacing-sm);
+            }
+
+            .method-section {
+                padding: var(--spacing-md);
+            }
+
+            .demo-area {
+                padding: var(--spacing-md);
+            }
+
+            .result-area {
+                max-height: 15rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- HEADER -->
+        <header>
+            <h1>Tutorial 5: Array Methods for Data</h1>
+            <p>From working with ONE element to working with MANY elements</p>
+        </header>
+
+        <!-- METHOD 1: forEach -->
+        <section class="method-section">
+            <h2>Method 1: forEach — Display Each Restaurant</h2>
+            <p>Use <code>forEach</code> to display each restaurant in the list. Like Tutorial 4, but for ALL items.</p>
+
+            <div class="demo-area">
+                <button class="method-button" id="display-button">Display All Restaurants</button>
+                <div class="result-area" id="restaurant-list">
+                    <p class="placeholder">Click button to display all restaurants</p>
+                </div>
+            </div>
+
+            <div class="explanation">
+                <p><strong>What's happening:</strong> <code>forEach</code> runs a function once for each restaurant in the array, letting you display or process every item.</p>
+            </div>
+        </section>
+
+        <!-- METHOD 2: filter -->
+        <section class="method-section">
+            <h2>Method 2: filter — Show Only Cheap Restaurants</h2>
+            <p>Use <code>filter</code> to show only restaurants with "$" or "$$" price range. Perfect for category views!</p>
+
+            <div class="demo-area">
+                <button class="method-button" id="filter-button">Show Cheap Restaurants</button>
+                <div class="result-area" id="filtered-list">
+                    <p class="placeholder">Click button to show only affordable restaurants</p>
+                </div>
+            </div>
+
+            <div class="explanation">
+                <p><strong>What's happening:</strong> <code>filter</code> creates a new array with only restaurants that meet your criteria (price is "$" or "$$").</p>
+            </div>
+        </section>
+
+        <!-- METHOD 3: map -->
+        <section class="method-section">
+            <h2>Method 3: map — Get Just Restaurant Names</h2>
+            <p>Use <code>map</code> to extract just the names from all restaurants. Great for creating simple lists!</p>
+
+            <div class="demo-area">
+                <button class="method-button" id="map-button">Show Restaurant Names</button>
+                <div class="result-area" id="mapped-list">
+                    <p class="placeholder">Click button to show just the restaurant names</p>
+                </div>
+            </div>
+
+            <div class="explanation">
+                <p><strong>What's happening:</strong> <code>map</code> transforms each restaurant into just its name, creating a new array of names.</p>
+            </div>
+        </section>
+
+        <!-- METHOD 4: find -->
+        <section class="method-section">
+            <h2>Method 4: find — Find Highest Rated Restaurant</h2>
+            <p>Use <code>find</code> to locate the restaurant with the highest rating. Perfect for finding specific items!</p>
+
+            <div class="demo-area">
+                <button class="method-button" id="find-button">Find Best Restaurant</button>
+                <div class="result-area" id="found-item">
+                    <p class="placeholder">Click button to find the highest rated restaurant</p>
+                </div>
+            </div>
+
+            <div class="explanation">
+                <p><strong>What's happening:</strong> <code>find</code> returns the first restaurant that meets your criteria (highest rating).</p>
+            </div>
+        </section>
+
+        <!-- TUTORIAL INSTRUCTIONS -->
+        <section class="tutorial-instructions">
+            <h2>Your Tasks</h2>
+            <ol>
+                <li><strong>forEach:</strong> Display all restaurant names and cuisines in the list area</li>
+                <li><strong>filter:</strong> Show only restaurants with "$" or "$$" price ranges</li>
+                <li><strong>map:</strong> Create a simple list of just restaurant names</li>
+                <li><strong>find:</strong> Find and display the restaurant with rating 4.8</li>
+            </ol>
+
+            <h3>Array Methods to Practice:</h3>
+            <ul>
+                <li><code>restaurants.forEach(function(restaurant) { })</code> — do something with each item</li>
+                <li><code>restaurants.filter(function(restaurant) { return condition; })</code> — get items that match</li>
+                <li><code>restaurants.map(function(restaurant) { return restaurant.name; })</code> — transform each item</li>
+                <li><code>restaurants.find(function(restaurant) { return condition; })</code> — get first matching item</li>
+            </ul>
+
+            <h3>Why These Methods Are Better Than Loops:</h3>
+            <ul>
+                <li><strong>Clearer intent:</strong> <code>filter</code> says "I want some items" vs a loop that could do anything</li>
+                <li><strong>Less error-prone:</strong> No need to manage index variables or array bounds</li>
+                <li><strong>Chainable:</strong> You can combine them: <code>restaurants.filter().map()</code></li>
+                <li><strong>Functional style:</strong> Each method returns a new array, keeping data immutable</li>
+            </ul>
+        </section>
+
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // ============================================
+        // TUTORIAL 5: ARRAY METHODS FOR DATA
+        // From ONE element to MANY elements
+        // ============================================
+
+        const restaurants = [
+            {
+                "id": 1,
+                "name": "Milano's Italian Restaurant",
+                "cuisine": "Italian",
+                "rating": 4.5,
+                "priceRange": "$$",
+                "neighborhood": "College Park",
+                "hours": "11am-10pm",
+                "specialties": ["pasta", "pizza"],
+                "phoneNumber": "(301) 555-0123"
+            },
+            {
+                "id": 2,
+                "name": "Sakura Sushi",
+                "cuisine": "Japanese",
+                "rating": 4.2,
+                "priceRange": "$$$",
+                "neighborhood": "Downtown",
+                "hours": "5pm-11pm",
+                "specialties": ["sushi", "ramen"],
+                "phoneNumber": "(301) 555-0456"
+            },
+            {
+                "id": 3,
+                "name": "Border Café",
+                "cuisine": "Mexican",
+                "rating": 4.0,
+                "priceRange": "$",
+                "neighborhood": "University District",
+                "hours": "10am-12am",
+                "specialties": ["tacos", "burritos"],
+                "phoneNumber": "(301) 555-0789"
+            },
+            {
+                "id": 4,
+                "name": "The Brass Elephant",
+                "cuisine": "American",
+                "rating": 4.8,
+                "priceRange": "$$$$",
+                "neighborhood": "Historic District",
+                "hours": "5pm-10pm",
+                "specialties": ["steaks", "seafood"],
+                "phoneNumber": "(301) 555-0012"
+            },
+            {
+                "id": 5,
+                "name": "Pho Corner",
+                "cuisine": "Vietnamese",
+                "rating": 4.3,
+                "priceRange": "$",
+                "neighborhood": "College Park",
+                "hours": "11am-9pm",
+                "specialties": ["pho", "banh mi"],
+                "phoneNumber": "(301) 555-0345"
+            },
+            {
+                "id": 6,
+                "name": "Tandoor Palace",
+                "cuisine": "Indian",
+                "rating": 4.1,
+                "priceRange": "$$",
+                "neighborhood": "Downtown",
+                "hours": "12pm-10pm",
+                "specialties": ["curry", "naan"],
+                "phoneNumber": "(301) 555-0678"
+            },
+            {
+                "id": 7,
+                "name": "Le Petit Bistro",
+                "cuisine": "French",
+                "rating": 4.6,
+                "priceRange": "$$$",
+                "neighborhood": "Historic District",
+                "hours": "6pm-10pm",
+                "specialties": ["wine", "cheese"],
+                "phoneNumber": "(301) 555-0901"
+            },
+            {
+                "id": 8,
+                "name": "Seoul Kitchen",
+                "cuisine": "Korean",
+                "rating": 4.4,
+                "priceRange": "$$",
+                "neighborhood": "University District",
+                "hours": "11am-11pm",
+                "specialties": ["bbq", "kimchi"],
+                "phoneNumber": "(301) 555-0234"
+            }
+        ];
+
+        // Wait for the page to load
+        document.addEventListener('DOMContentLoaded', (event) => {
+            console.log('Tutorial 5: Array methods ready!');
+            console.log(`We have ${restaurants.length} restaurants to work with`);
+
+            // ============================================
+            // METHOD 1: forEach - DO SOMETHING WITH EACH ITEM
+            // ============================================
+            const displayButton = document.querySelector('#display-button');
+            const restaurantList = document.querySelector('#restaurant-list');
+
+            displayButton.addEventListener('click', () => {
+                // Clear existing content
+                restaurantList.innerHTML = '';
+
+                // Use forEach to display each restaurant's name, cuisine, and price
+                restaurants.forEach((restaurant) => {
+                    restaurantList.innerHTML += `
+                        <div class="restaurant-item">
+                            <span class="restaurant-name">${restaurant.name}</span>
+                            <span class="restaurant-cuisine"> — ${restaurant.cuisine}</span>
+                            <span class="restaurant-price">${restaurant.priceRange}</span>
+                        </div>
+                    `;
+                });
+
+                console.log('Displayed all restaurants using forEach');
+            });
+
+            // ============================================
+            // METHOD 2: filter - GET ITEMS THAT MATCH CRITERIA
+            // ============================================
+            const filterButton = document.querySelector('#filter-button');
+            const filteredList = document.querySelector('#filtered-list');
+
+            filterButton.addEventListener('click', (event) => {
+                // Use filter to get only restaurants with "$" or "$$" price range
+                const cheapRestaurants = restaurants.filter((restaurant) => {
+                    return restaurant.priceRange === '$' || restaurant.priceRange === '$$';
+                });
+
+                // Display the filtered results
+                filteredList.innerHTML = '';
+                cheapRestaurants.forEach((restaurant) => {
+                    filteredList.innerHTML += `
+                        <div class="restaurant-item">
+                            <span class="restaurant-name">${restaurant.name}</span>
+                            <span class="restaurant-cuisine"> — ${restaurant.cuisine}</span>
+                            <span class="restaurant-price">${restaurant.priceRange}</span>
+                            <span class="restaurant-rating"> ⭐ ${restaurant.rating}</span>
+                        </div>
+                    `;
+                });
+
+                console.log('Showed cheap restaurants using filter');
+            });
+
+            // ============================================
+            // METHOD 3: map - TRANSFORM EACH ITEM
+            // ============================================
+            const mapButton = document.querySelector('#map-button');
+            const mappedList = document.querySelector('#mapped-list');
+
+            mapButton.addEventListener('click', (event) => {
+                // Use map to extract just the restaurant names
+                const names = restaurants.map((restaurant) => {
+                    return restaurant.name;
+                });
+
+                // Display the names as a simple unordered list
+                mappedList.innerHTML = '<ul class="name-list"></ul>';
+                const ul = mappedList.querySelector('.name-list');
+
+                names.forEach((name) => {
+                    ul.innerHTML += `<li>${name}</li>`;
+                });
+
+                console.log('Showed restaurant names using map');
+            });
+
+            // ============================================
+            // METHOD 4: find - GET ONE SPECIFIC ITEM
+            // ============================================
+            const findButton = document.querySelector('#find-button');
+            const foundItem = document.querySelector('#found-item');
+
+            findButton.addEventListener('click', (event) => {
+                // Use find to locate the restaurant with rating 4.8
+                const bestRestaurant = restaurants.find((restaurant) => {
+                    return restaurant.rating === 4.8;
+                });
+
+                // Display the found restaurant (with a safety check)
+                if (bestRestaurant) {
+                    foundItem.innerHTML = `
+                        <div class="found-restaurant">
+                            <div class="restaurant-name">${bestRestaurant.name}</div>
+                            <div>${bestRestaurant.cuisine} · ${bestRestaurant.neighborhood}</div>
+                            <div>⭐ ${bestRestaurant.rating} · ${bestRestaurant.priceRange}</div>
+                            <div>${bestRestaurant.hours}</div>
+                            <div>Specialties: ${bestRestaurant.specialties.join(', ')}</div>
+                        </div>
+                    `;
+                } else {
+                    foundItem.innerHTML = '<p class="placeholder">No restaurant found with that rating.</p>';
+                }
+
+                console.log('Found best restaurant using find');
+            });
+        });
+
+        // ============================================
+        // HELPER FUNCTIONS FOR DEBUGGING
+        // ============================================
+        function demonstrateMethods() {
+            console.log('=== Method Demonstrations ===');
+
+            console.log('forEach example:');
+            restaurants.forEach((restaurant) => {
+                console.log(`- ${restaurant.name} (${restaurant.cuisine})`);
+            });
+
+            const cheap = restaurants.filter((restaurant) => {
+                return restaurant.priceRange === '$' || restaurant.priceRange === '$$';
+            });
+            console.log('filter example (cheap restaurants):', cheap.length, 'found');
+
+            const names = restaurants.map((restaurant) => {
+                return restaurant.name;
+            });
+            console.log('map example (names):', names);
+
+            const best = restaurants.find((restaurant) => {
+                return restaurant.rating === 4.8;
+            });
+            console.log('find example (best):', best ? best.name : 'not found');
+        }
+
+        function clearAllDisplays() {
+            document.querySelector('#restaurant-list').innerHTML = '<p class="placeholder">Click button to display all restaurants</p>';
+            document.querySelector('#filtered-list').innerHTML = '<p class="placeholder">Click button to show only affordable restaurants</p>';
+            document.querySelector('#mapped-list').innerHTML = '<p class="placeholder">Click button to show just the restaurant names</p>';
+            document.querySelector('#found-item').innerHTML = '<p class="placeholder">Click button to find the highest rated restaurant</p>';
+            console.log('All displays cleared');
+        }
+    </script>
+</body>
+</html>
+
